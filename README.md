@@ -8,5 +8,5 @@ Sistema para validar tiempo de uso de la aplicacion con tkinter.
    aplicacion principal, usando el archivo requierements.txt de la carpeta main.
 
 3. EL servidor hug y la base de datos sqlite3 se debe intalar separado en otro virtual env.
-
+   Este se inicializa con hug -f hugserver.py (Este archivo puede ser cualquier nombre)
 
