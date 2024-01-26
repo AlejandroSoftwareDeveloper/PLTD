@@ -1,7 +1,6 @@
 import uuid
 import datetime
 
-
 class Usuario:
     def __init__(
         self,
@@ -29,8 +28,8 @@ class Usuario:
             "initial_date_of_premiun": str(self.fipag)
             if self.fipag is not None
             else self.fipag,
-            "total_days_of_test": self.diaspru,
-            "total_days_of_payment": self.diaspag,
+            "days_of_test": self.diaspru,
+            "days_of_use_as_premiun": self.diaspag,
             "has_temporal_licence_due": self.terminopru,
             "has_payment_license_due": self.terminopag,
         }
@@ -42,8 +41,8 @@ class Usuario:
             "initial_date_of_premiun": str(self.fipag)
             if self.fipag is not None
             else self.fipag,
-            "total_days_of_test": self.diaspru,
-            "total_days_of_payment": self.diaspag,
+            "days_of_test": self.diaspru,
+            "days_of_use_as_premiun": self.diaspag,
             "has_temporal_licence_due": self.terminopru,
             "has_payment_license_due": self.terminopag,
         }
@@ -51,3 +50,34 @@ class Usuario:
 
 def registrar_usuario():
     return Usuario()
+ 
+async def tiempo_restante(data,string):
+    year,month, days = data[string].split("-")
+    test_time = datetime.datetime(int(year),int(month),int(days)) 
+    today =  datetime.datetime.now()
+    return [test_time,today]
+
+async def user_has_tests_days(data:dict):
+    test_time,today = await tiempo_restante(data,'start_date_for_test')
+    return int((today - test_time).days) <= data['days_of_test'] and data['tests_days_selected'] 
+    
+async def user_has_premiun_days(data:dict):
+    test_time,today = await tiempo_restante(data,'start_date_for_premiun_use')
+    return int((today - test_time).days) <= data['days_of_use_as_premiun'] and data['premiun_days_selected']
+
+async def dias_restantes(data,string):
+    test_time,today = await tiempo_restante(data,string)
+    return int((today - test_time).days)
+
+    # print((today - test_time) >= data['days_of_test'] )
+    # time_delta = datetime.timedelta(days=data['days_of_test'])
+    # print(time_delta)
+#  now = datetime.datetime.now()
+    
+#     #Dias para la fecha final
+#     days = datetime.timedelta(days=15)
+#     fecha_final = now + days
+    
+#     #Calculo para dias retantes
+#     dias_restantes = int(str(fecha_final - now).split(" ")[0])
+#     return (uid,now,True)
