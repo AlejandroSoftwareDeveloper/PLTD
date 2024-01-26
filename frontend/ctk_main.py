@@ -105,9 +105,3 @@ button1.pack(pady=12, padx=10)
 label.pack(pady=12, padx=10)
 
 root.mainloop()
-
-
-"""
-El boton de registrar usuario sale cuando
-- el usuario no esta registrado
-"""
